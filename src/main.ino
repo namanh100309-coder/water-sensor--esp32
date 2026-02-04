@@ -56,7 +56,6 @@ ThingSpeak.begin(client);
   Serial.println("\nConnected to WiFi!");
   Serial.println(WiFi.localIP());
 
-
 //OLED START
   display.clearDisplay();
   display.setTextColor(SSD1306_WHITE);
@@ -94,6 +93,18 @@ ThingSpeak.begin(client);
     display.drawCircle(random(10,120), random(10,50), 5, SSD1306_WHITE);
     display.display();}
     display.clearDisplay();
+
+display.setTextSize(1);
+  display.setCursor(0, 0);
+display.print ("Nhiet do: ");
+display.setCursor(90, 0);
+display.print ("do C");
+display.setCursor(0, 30);
+display.print("Chi so TDS: ");
+display.setCursor(90, 30);
+display.print (" ppm");
+display.display();
+
 }
 
 void loop() 
@@ -101,33 +112,19 @@ void loop()
 sensors.requestTemperatures();
   float T = sensors.getTempCByIndex(0);   
   float TDS = analogRead(32);   
-
-   display.setTextSize(1);
-  display.setCursor(0, 0);
-display.print ("Nhiet do: ");
+  display.fillRect(60, 0, 30, 30, SSD1306_BLACK);
+display.fillRect(70, 30, 20, 60, SSD1306_BLACK);
+  display.setTextSize(1);
  display.setCursor(60, 0);
 display.print (T);
-display.setCursor(90, 0);
-  display.print ("do C");
-display.setCursor(0, 30);
-display.print("Chi so TDS: ");
 display.setCursor(70, 30);
 display.print (TDS);
 display.setCursor(90, 30);
 display.print (" ppm");
 display.display();
 
-  Serial.print ("Nhiet do : ");
-  Serial.print (T);
-  Serial.print (" °C      ");
-  Serial.print("Chi so TDS: ");
-  Serial.print(TDS);
-Serial.println (" ppm");
-
 ThingSpeak.setField(1, TDS);
 ThingSpeak.setField(2, T);       
   ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
-  display.clearDisplay();
-
   delay (15000);
 }
