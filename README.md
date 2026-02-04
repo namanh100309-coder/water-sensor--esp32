@@ -32,3 +32,7 @@ Temperature and TDS sensor
         ↓
    WiFi → ThingSpeak
 
+## System Image
+### The realistic image of system
+The image below illustrates the hardware model of a water quality monitoring system using ESP32, including a DS18B20 temperature sensor, a TDS sensor, and an OLED display.
+         
